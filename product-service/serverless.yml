@@ -1,0 +1,32 @@
+service: product-service
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+plugins:
+  - serverless-webpack
+
+	
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+
+functions:
+  getProductsList:
+    handler: handlers/getProductsList.handler
+    events:
+      - http:
+          method: GET
+          path: products
+          cors: true
+  getProductsById:
+    handler: handlers/getProductsById.handler
+    events:
+      - http:
+          method: GET
+          path: products/{id}
+          cors: true
