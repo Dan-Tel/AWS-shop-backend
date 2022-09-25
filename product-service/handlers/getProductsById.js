@@ -6,7 +6,9 @@ export const handler = async (id) => {
     const product = await getOneProduct(id);
 
     if (!product) {
-      throw "Product not found";
+      return createResponse(constants.HTTP_STATUS_NOT_FOUND, {
+        error: "Product not found",
+      });
     }
     return createResponse(constants.HTTP_STATUS_OK, product);
   } catch (error) {
