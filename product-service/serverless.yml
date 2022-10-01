@@ -1,0 +1,51 @@
+service: product-service
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+  - serverless-offline
+
+	
+custom:
+  webpack:
+    webpackConfig: 'webpack.config.js'
+    includeModules: true
+  autoswagger:
+    basePath: '/dev'
+    apiType: 'http'
+
+functions:
+  getProductsList:
+    handler: handlers/getProductsList.handler
+    events:
+      - http:
+          method: GET
+          path: products
+          cors: true
+          description: GET products list
+          responses:
+            200:
+              description: OK
+            500:
+              description: Internal Server Error
+  getProductsById:
+    handler: handlers/getProductsById.handler
+    events:
+      - http:
+          method: GET
+          path: products/{id}
+          cors: true
+          description: GET product by ID
+          responses:
+            200:
+              description: OK
+            404:
+              description: Not Found
+            500:
+              description: Internal Server Error
