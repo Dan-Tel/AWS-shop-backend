@@ -1,10 +1,3 @@
-import data from "../productsList.json";
-
-export const getAllProducts = async () => data;
-
-export const getOneProduct = async (productId) =>
-  data.find(({ id }) => id == productId);
-
 export const createResponse = (statusCode, body) => {
   return {
     statusCode: statusCode,

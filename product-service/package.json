@@ -6,15 +6,18 @@
     "@babel/core": "^7.19.1",
     "@babel/node": "^7.19.1",
     "@babel/preset-env": "^7.19.1",
+    "aws-sdk": "^2.1227.0",
     "babel-loader": "^8.2.5",
     "jest": "^29.0.3",
     "nodemon": "^2.0.20",
-    "serverless-offline": "^10.2.1",
+    "pg": "^8.8.0",
+    "serverless-offline": "^10.3.2",
     "serverless-webpack": "^5.9.1",
     "webpack": "^5.74.0",
     "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
-    "serverless-auto-swagger": "^2.8.2"
+    "serverless-auto-swagger": "^2.8.2",
+    "uuid": "^9.0.0"
   }
 }
