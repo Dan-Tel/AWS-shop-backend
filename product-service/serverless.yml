@@ -5,12 +5,16 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs16.x
+  iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - dynamodb:*
+    Resource: "*"
 
 plugins:
   - serverless-auto-swagger
   - serverless-webpack
   - serverless-offline
-
 	
 custom:
   webpack:
@@ -21,6 +25,13 @@ custom:
     apiType: 'http'
 
 functions:
+  addProductsToDB:
+    handler: handlers/addProductsToDB.handler
+    events:
+      - http:
+          method: GET
+          path: init
+          cors: true
   getProductsList:
     handler: handlers/getProductsList.handler
     events:
@@ -49,3 +60,46 @@ functions:
               description: Not Found
             500:
               description: Internal Server Error
+  createProduct:
+    handler: handlers/createProduct.handler
+    events:
+      - http:
+          method: POST
+          path: products
+          cors: true
+          description: Create new product
+          responses:
+            200:
+              description: OK
+            500:
+              description: Internal Server Error
+
+resources:
+  Resources:
+    Products:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Products
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1  
+
+    Stocks:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Stocks
+        AttributeDefinitions:
+          - AttributeName: product_id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: product_id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1    

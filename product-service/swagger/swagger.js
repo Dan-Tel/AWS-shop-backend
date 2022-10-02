@@ -6,11 +6,50 @@
     "version": "1"
   },
   "paths": {
+    "/init": {
+      "get": {
+        "summary": "addProductsToDB",
+        "description": "",
+        "operationId": "addProductsToDB.get.init",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "200 response"
+          }
+        }
+      }
+    },
     "/products": {
       "get": {
         "summary": "getProductsList",
         "description": "GET products list",
         "operationId": "getProductsList.get.products",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "summary": "createProduct",
+        "description": "Create new product",
+        "operationId": "createProduct.post.products",
         "consumes": [
           "application/json"
         ],
