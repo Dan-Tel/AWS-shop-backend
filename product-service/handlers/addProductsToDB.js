@@ -1,7 +1,7 @@
 import AWS from "aws-sdk";
 const dynamoDB = new AWS.DynamoDB();
 
-import { createResponse } from "./response";
+import { createResponse } from "./functions/response";
 import { constants } from "http2";
 
 export const handler = async () => {
@@ -131,12 +131,10 @@ export const handler = async () => {
       })
       .promise();
 
-    return createResponse(constants.HTTP_STATUS_OK, {
-      message: "OK",
-    });
+    return createResponse(constants.HTTP_STATUS_OK, { message: "OK" });
   } catch (error) {
     return createResponse(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR, {
-      error: error,
+      error: "Internal server error",
     });
   }
 };

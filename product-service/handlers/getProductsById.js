@@ -1,22 +1,26 @@
 import AWS from "aws-sdk";
 
-import { createResponse } from "./response";
+import { createResponse } from "./functions/response";
 import { constants } from "http2";
 
 const docClient = new AWS.DynamoDB.DocumentClient();
 
 export const handler = async (event) => {
   try {
+    console.log(`Request:\nEvent: ${event}\nId: ${event.pathParameters.id}\n`);
+
     const product = await getProductFromDB(event.pathParameters.id);
     if (!product) {
       return createResponse(constants.HTTP_STATUS_NOT_FOUND, {
         error: "Product not found",
       });
     }
+
+    console.log(`Response:\nProduct: ${product}`);
     return createResponse(constants.HTTP_STATUS_OK, product);
   } catch (error) {
     return createResponse(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR, {
-      error: error,
+      error: "Internal server error",
     });
   }
 };

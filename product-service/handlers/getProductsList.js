@@ -1,6 +1,6 @@
 import AWS from "aws-sdk";
 
-import { createResponse } from "./response";
+import { createResponse } from "./functions/response";
 import { constants } from "http2";
 
 const docClient = new AWS.DynamoDB.DocumentClient();
@@ -8,10 +8,12 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 export const handler = async () => {
   try {
     const products = await getProductsFromDB();
+
+    console.log(`Response:\nProducts List: ${products}`);
     return createResponse(constants.HTTP_STATUS_OK, products);
   } catch (error) {
     return createResponse(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR, {
-      error: error,
+      error: "Internal server error",
     });
   }
 };

@@ -73,6 +73,29 @@ functions:
               description: OK
             500:
               description: Internal Server Error
+          requestBody:
+            required: true
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    title:
+                      type: string
+                      example: 'Example of title'
+                      description: Product title
+                    description:
+                      type: string
+                      example: 'Example of description'
+                      description: Description of product
+                    count:
+                      type: number
+                      example: 4
+                      description: Product quantity
+                    price:
+                      type: number
+                      example: 25.99
+                      description: Product price
 
 resources:
   Resources:
